@@ -3,7 +3,7 @@
 ## Vai trò
 Đồ án học phần An toàn hệ điều hành — thực hiện theo nhóm.
 Phần tôi trực tiếp phụ trách: **Troubleshooting an AppArmor profile**.
-Điểm nhóm: 9+/10
+Điểm nhóm: 9/10
 
 ## Mục tiêu
 Tìm hiểu và thực hành xử lý sự cố với AppArmor — một cơ chế kiểm soát truy cập bắt buộc (MAC) trên Linux.
