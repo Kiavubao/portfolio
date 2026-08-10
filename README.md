@@ -40,7 +40,7 @@ Mục tiêu chính của tôi là nghiên cứu, thiết lập hệ thống giá
 ---
 
 ## 📄 Thông tin liên hệ
-
+**Số điện thoại:** 0908694414 *
 * **Email:** [hogiabao17102005@gmail.com](mailto:hogiabao17102005@gmail.com)
 * **GitHub:** [github.com/Kiavubao](https://github.com/Kiavubao)
 
