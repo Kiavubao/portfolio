@@ -30,10 +30,12 @@ Mục tiêu chính của tôi là nghiên cứu, thiết lập hệ thống giá
 - **Mô tả ngắn**: Phân tích cơ chế tấn công SQL Injection, thiết lập và tối ưu hóa luật bộ lọc WAF để chặn các payload độc hại trên mô hình ứng dụng 3 lớp (3-tier).
 - **Vai trò**: Trực tiếp phân tích và viết báo cáo các mục 1.1, 2.1, 2.4, 3.1.
 
-### 4. [Mandatory Access Control with AppArmor](./linux-mac-apparmor/) *(Đồ án nhóm)*
+### 4. [Mandatory Access Control with AppArmor](./linux-mac-apparmor) *(Đồ án nhóm)*
 - **Mô tả ngắn**: Nghiên cứu và thực hành cơ chế kiểm soát truy cập bắt buộc (MAC) trên hệ thống Linux/macOS sử dụng AppArmor nhằm cô lập ứng dụng và hạn chế leo thang quyền hạn.
 - **Vai trò**: Phụ trách phần cấu hình và xử lý lỗi (troubleshooting) mục 1.3, 1.4.
 
+5. 🏆 [HVCS Contest Management Platform](./hvcs-management-system) *(Phần mềm/Đồ án)*
+- **Mô tả ngắn:** Xây dựng/Triển khai hệ thống phần mềm quản lý cuộc thi HVCS, hỗ trợ tổ chức, giám sát và quản lý dữ liệu thí sinh.
 ---
 
 ## 📄 Thông tin liên hệ
