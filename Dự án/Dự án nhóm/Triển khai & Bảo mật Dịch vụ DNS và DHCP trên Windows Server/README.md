@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿# Triển khai & Bảo mật Dịch vụ DNS và DHCP trên Windows Server
+
+# Triển khai & Bảo mật Dịch vụ DNS và DHCP trên Windows Server
 
 Thực hành cấu hình, triển khai và bảo mật hệ thống mạng cho các dịch vụ cốt lõi (DNS, DHCP) trong môi trường Windows Server và Windows Client.
 
