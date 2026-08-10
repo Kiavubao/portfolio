@@ -1,6 +1,6 @@
 # 🛡️ WAF Deployment & SQL Injection Bypass Analysis
 
-> ⚠️ Nội dung trích xuất từ Đồ án nhóm (chỉ gồm các phần do tôi trực tiếp phụ trách: 1.1, 2.1, 2.4, 3.1)[cite: 6].
+> ⚠️ Nội dung trích xuất từ Đồ án nhóm (chỉ gồm các phần do tôi trực tiếp phụ trách: 1.1, 2.1, 2.4, 3.1).
 
 ---
 
