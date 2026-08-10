@@ -1,0 +1,75 @@
+🛠️ Giai đoạn 1 (Đơn giản): Xây dựng Home Lab SIEM & Giám sát Tấn công cơ bản
+Mục tiêu: Chứng minh bạn hiểu cách hoạt động của hệ sinh thái SIEM (trái tim của SOC), cách cấu hình Agent thu thập log và nhận diện các kỹ thuật tấn công cơ bản (Brute Force, Port Scanning).
+
+1. Thành phần công nghệ:
+SIEM/Log Management: Wazuh (khuyên dùng vì rất phổ biến, mã nguồn mở, kiến trúc giống với Splunk/ELK nhưng dễ triển khai cho SOC) hoặc Elastic Stack (ELK).
+
+Target (Nạn nhân): 1 máy ảo Ubuntu Server hoặc Windows Server đóng vai trò là Server cần bảo vệ.
+
+Attacker (Kẻ tấn công): Máy ảo Kali Linux.
+
+2. Các bước triển khai dự án:
+Bước 1: Dựng Wazuh Manager. Cài đặt Wazuh Agent lên máy ảo Target để đẩy log (Syslog, Event Logs) về bộ xử lý trung tâm.
+
+Bước 2: Dùng Kali Linux thực hiện tấn công SSH Brute Force (bằng Hydra) hoặc Port Scanning (bằng Nmap) vào máy Target.
+
+Bước 3: Lên Dashboard của Wazuh để quan sát các Alert được kích hoạt. Tiến hành phân tích log (địa chỉ IP nào tấn công, thời gian nào, user nào bị nhắm tới).
+
+Bước 4: Tùy chỉnh (Customize) lại Ruleset trên Wazuh để tối ưu hóa việc cảnh báo (ví dụ: Tạo rule cảnh báo nếu 1 IP đăng nhập sai quá 5 lần trong 10 giây).
+
+🛡️ Giai đoạn 2 (Vừa): Xây dựng IDS & Phân tích chuyên sâu (Deep Log & Traffic Analysis)
+Mục tiêu: Nâng cấp hệ thống giám sát bằng cách kết hợp cả giám sát log hệ thống (Host-based) và giám sát lưu lượng mạng (Network-based). Dự án này chứng minh bạn có tư duy phân tích sâu của một SOC Analyst Tier 1 / Tier 2.
+
+1. Thành phần công nghệ bổ sung:
+NIDS (Network Intrusion Detection System): Suricata hoặc Zeek.
+
+SIEM Integration: Đẩy toàn bộ log của Suricata/Zeek về lại Wazuh hoặc Elastic Stack để tập trung dữ liệu.
+
+Tấn công nâng cao: Các kỹ thuật khai thác lỗ hổng (Exploit) như SQL Injection, Web Shell, hoặc Reverse Shell.
+
+2. Các bước triển khai dự án:
+Bước 1: Cấu hình Suricata giám sát traffic của card mạng trên server. Cài đặt luật (Rules) của Emerging Threats để bắt các dấu hiệu tấn công mạng.
+
+Bước 2: Dùng Kali Linux thực hiện tấn công Web (ví dụ: Khai thác SQL Injection trên một ứng dụng web lỗ hổng có sẵn như DVWA).
+
+Bước 3: Thực hiện Tương quan dữ liệu (Log Correlation): Kết hợp log mạng từ Suricata (phát hiện hành vi SQL Injection) và log hệ thống từ Wazuh (phát hiện có file lạ/Web shell được tạo ra trên thư mục /var/www/html).
+
+Bước 4: Viết một Báo cáo phân tích sự cố (Incident Report) chuẩn SOC: Tóm tắt cuộc tấn công, mốc thời gian (Timeline), mức độ ảnh hưởng (Impact) và biện pháp xử lý (Remediation). File report này đính kèm vào Github sẽ là điểm cộng cực lớn khi phỏng vấn.
+
+🤖 Giai đoạn 3 (Nâng cao): Tự động hóa phản ứng (SOAR) & Tích hợp Threat Intelligence
+Mục tiêu: Đây là dự án "ăn tiền" giúp bạn nổi bật hoàn toàn so với các ứng viên khác. Thay vì chỉ ngồi nhìn Alert và chặn thủ công, bạn sẽ ứng dụng tự động hóa để cô lập kẻ tấn công ngay lập tức.
+
+1. Thành phần công nghệ:
+SOAR (Security Orchestration, Automation, and Response): Shuffle (công cụ SOAR mã nguồn mở dạng kéo thả cực mạnh) hoặc tự viết Python Script để gọi API.
+
+Threat Intelligence: VirusTotal API hoặc AlienVault OTX (để check độ uy tín của IP/File).
+
+Firewall/Access Control: Cấu hình tự động tương tác với UFW (Ubuntu) hoặc Cisco Firewall/Access List qua API/SSH.
+
+2. Các bước triển khai dự án (Kịch bản tự động hóa - Playbook):
+Bước 1 (Trigger): Khi Wazuh/Suricata phát hiện một đợt tấn công mức độ nghiêm trọng (ví dụ: Thành công Up Web shell hoặc Scan cổng diện rộng), nó sẽ bắn một Webhook (chứa dữ liệu cuộc tấn công bao gồm IP kẻ tấn công) sang cho Shuffle (SOAR) hoặc Python Script của bạn.
+
+Bước 2 (Enrichment): Python/SOAR nhận IP đó, tự động gửi API request lên VirusTotal để kiểm tra xem IP này có phải là Malicious IP (IP độc hại) hay không.
+
+Bước 3 (Containment): Nếu VirusTotal xác nhận độc hại, SOAR/Python sẽ tự động kích hoạt một script kết nối SSH/API vào thiết bị Firewall hoặc Máy nạn nhân, tự động thêm một rule chặn (Block/Deny) IP của kẻ tấn công ngay lập tức mà không cần con người can thiệp.
+
+Bước 4 (Notification): Tự động gửi một tin nhắn cảnh báo qua Telegram/Discord/Slack cho Đội SOC: "Phát hiện tấn công từ IP X, hệ thống đã tự động block IP này vào lúc Y".
+
+📝 Cách đưa chuỗi dự án này vào CV để thu hút nhà tuyển dụng:
+Thay vì chỉ viết dòng chữ ngắn gọn "Biết sử dụng SIEM", hãy viết theo mô hình hành động:
+
+Dự án: Hệ thống Giám sát & Tự động phản ứng sự cố (SIEM/SOAR Lab)
+
+Mô tả: Thiết kế và triển khai mô hình phòng thủ SOC thu nhỏ nhằm phát hiện và ngăn chặn tự động các cuộc tấn công mạng.
+
+Hành động & Công nghệ:
+
+Triển khai Wazuh và Suricata để thu thập, chuẩn hóa và tương quan dữ liệu log hệ thống và lưu lượng mạng của 5 máy chủ ảo hóa.
+
+Xây dựng cấu trúc rule tùy chỉnh để phát hiện chính xác các hành vi dò quét (Reconnaissance) và khai thác lỗ hổng (Web Exploit).
+
+Ứng dụng Python & Shuffle (SOAR) kết nối API với VirusTotal để tự động hóa quy trình phân tích độ nguy hại của IP và tự động thực thi lệnh chặn trên Firewall giúp giảm thời gian phản ứng (MTTR) xuống dưới 10 giây.
+
+Sản phẩm đính kèm: Link GitHub (chứa file cấu hình rule, source code Python SOAR, sơ đồ kiến trúc mạng Lab, và file Báo cáo phân tích sự cố mẫu).
+
+Bạn có thể bắt đầu ngay từ Giai đoạn 1 bằng cách cài đặt các máy ảo trên VMware hoặc VirtualBox. Dựng xong Giai đoạn 1 thành công là bạn đã có một nền tảng rất vững về tư duy đọc log của SOC Analyst rồi!
